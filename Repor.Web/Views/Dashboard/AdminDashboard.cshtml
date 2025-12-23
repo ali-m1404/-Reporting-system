@@ -85,7 +85,18 @@
                         {
                             <tr>
                                 <td>@report.Title</td>
-                                <td>@report.ReportType</td>
+                                @{
+                                    var reportType = report.ReportType;
+                                    if (reportType == 1)
+                                    {
+                                        <td>روزانه</td>
+                                    }
+                                    else
+                                    {
+                                       <td> هفته وار </td >
+                                    }
+                                }
+                                
                                 <td>@report.UserName</td>
                                 <td>@report.CreatedDate.ToString("yyyy-MM-dd")</td>
                                 <td>

@@ -59,7 +59,7 @@ namespace Repor.Web.Controllers
 
         #endregion
 
-
+        [Authorize(Roles = "1,2,3")]
         public async Task<IActionResult> MyReports()
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -176,16 +176,38 @@
                     </div>
                 </div>
 
-                <!-- دکمه بازگشت -->
-                <div class="pt-6 border-t border-gray-200 flex justify-end">
-                    <a asp-action="Index"
-                       class="flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-3 rounded-xl font-medium transition duration-200">
-                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                        بازگشت به لیست گزارش‌ها
-                    </a>
-                </div>
+               @{
+
+                    var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                    @if (roleId == "1" || roleId == "2")
+                    {
+                        <div class="pt-6 border-t border-gray-200 flex justify-end">
+                            <a asp-action="index"
+                               class="flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-3 rounded-xl font-medium transition duration-200">
+                                <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                بازگشت به لیست گزارش‌ها
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="pt-6 border-t border-gray-200 flex justify-end">
+                            <a asp-action="MyReports"
+                               class="flex items-center bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-3 rounded-xl font-medium transition duration-200">
+                                <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                بازگشت به لیست گزارش‌ها
+                            </a>
+                        </div>
+                    }
+                }
+                   
+                    
+               
+
             </div>
         </div>
 

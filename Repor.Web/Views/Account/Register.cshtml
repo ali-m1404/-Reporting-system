@@ -23,7 +23,7 @@
                 <h2 class="mt-2 text-3xl font-bold text-gray-900">ایجاد حساب کاربری</h2>
                 <p class="mt-2 text-sm text-gray-600">
                     یا
-                    <a href="login.html" class="font-medium text-blue-600 hover:text-blue-500 transition">
+                    <a asp-controller="account" asp-action="login" class="font-medium text-blue-600 hover:text-blue-500 transition">
                         ورود به حساب کاربری
                     </a>
                 </p>
@@ -114,11 +114,29 @@
                     </div>
                 </div>
 
-                <div class="text-center">
-                    <a href="/" class="text-sm text-blue-600 hover:text-blue-500 transition">
-                        بازگشت به صفحه اصلی
-                    </a>
-                </div>
+                 @{
+
+                    var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                    @if (roleId == "1" || roleId == "2")
+                    {
+                      
+                            <div class="text-center">
+                            <a asp-controller="usermanagement" asp-action="Index" class="text-sm text-blue-600 hover:text-blue-500 transition">
+                                    بازگشت به صفحه اصلی
+                                </a>
+                            </div>
+                    }
+                    else
+                    {
+                         <div class="text-center">
+                            <a asp-controller="account" asp-action="login" class="text-sm text-blue-600 hover:text-blue-500 transition">
+                                بازگشت به صفحه اصلی
+                            </a>
+                        </div>
+                    }
+                 } 
+
+                
             </form>
         </div>
     </div>

@@ -33,7 +33,7 @@ namespace Report.Services
                 {
                     Title = r.Title,
                     UserName = r.User.FirstName + " " + r.User.LastName,
-                    ReportType = r._ReportStatus.Name,
+                    ReportType = r.ReportTypeId,
                     CreatedDate = r.CreatedDate,
                     Status = r._ReportStatus.Name
                 }).ToList()
@@ -59,7 +59,7 @@ namespace Report.Services
                 {
                     Title = r.Title,
                     UserName = r.User.FirstName + " " + r.User.LastName,
-                    ReportType = r._ReportStatus.Name,
+                    ReportType = r.ReportTypeId,
                     CreatedDate = r.CreatedDate,
                     Status = r._ReportStatus.Name
                 }).ToList()
@@ -88,7 +88,7 @@ namespace Report.Services
                 {
                     Title = r.Title,
                     UserName = r.User.FirstName + " " + r.User.LastName,
-                    ReportType = r._ReportStatus.Name,
+                    ReportType = r.ReportTypeId,
                     CreatedDate = r.CreatedDate,
                     Status = r._ReportStatus.Name     
                 }).ToList()
