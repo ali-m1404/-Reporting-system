@@ -1,0 +1,218 @@
+﻿@using System.Security.Claims
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم گزارش‌دهی</title>
+    <!-- استفاده از Url.Content برای مسیرهای CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/css/output.css")">
+    @* <link rel="stylesheet" href="./css/output.css"> *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- نوار بالایی -->
+
+    <header class="bg-gray-600 text-white shadow-md">
+        <!--
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+         -->
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 bg-white rounded-full ml-3 flex items-center justify-center">
+                    <span class="text-blue-600 font-bold text-lg">لوگو</span>
+                </div>
+                <h1 class="text-xl font-bold">سیستم گزارش‌دهی</h1>
+            </div>
+            <div class="flex items-center">
+                <div class="flex items-center ml-4">
+                    <img src="./assets/images/user-placeholder.jpg" alt="پروفایل کاربر" class="w-8 h-8 rounded-full ml-2">
+                    <span id="user-name" class="font-medium">نام کاربر</span>
+                </div>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        خروج
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+  
+    <div class="mx-auto px-0.5 py-6 w-11/12 flex flex-col md:flex-row">
+        <!-- منوی کناری -->
+        <aside class="min-h-screen flex flex-col w-full md:w-72 bg-white shadow-md rounded-lg md:ml-6 mb-6 md:mb-0">
+
+            @* نمایش پروفایل  *@
+            <div class="relative flex flex-col items-center justify-center p-6 w-full max-w-sm mx-auto">
+                <!-- کارت اصلی -->
+                <div class="relative w-64 h-80 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-50 to-indigo-100 border border-white/50">
+
+                    <!-- پس‌زمینه دایره‌ای -->
+                    <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-gradient-to-r from-blue-200 to-purple-200 opacity-70"></div>
+                    <div class="absolute -bottom-20 -left-20 w-56 h-56 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 opacity-70"></div>
+
+                    <!-- قاب عکس با افکت شناور -->
+                    <div class="relative z-10 flex flex-col items-center justify-center h-full px-4">
+
+                        <!-- قاب دایره‌ای عکس با گرادیان -->
+                        <div class="relative mb-6 group">
+                            <!-- حلقه انیمیشنی دور عکس -->
+                            <div class="absolute -inset-1.5 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-70 group-hover:opacity-100 blur group-hover:blur-md transition-all duration-500"></div>
+
+                            <!-- حلقه داخلی -->
+                            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
+
+                            <!-- عکس پروفایل - اندازه ثابت -->
+                            <div class="relative">
+                                <!-- کانتینر با ابعاد ثابت -->
+                                <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gray-100 flex items-center justify-center">
+                                    <img src="@User.FindFirst("ProfileImage")?.Value"
+                                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                         alt="پروفایل کاربر"
+                                         onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\" fas fa-user text-gray-400 text-4xl\"></i>';" />
+                                </div>
+
+                                <!-- نشانگر آنلاین -->
+                                <div class="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm"></div>
+                            </div>
+
+                            <!-- آیکون ویرایش -->
+                            <div class="absolute bottom-0 left-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-blue-50 transition-colors">
+                                <i class="fas fa-camera text-blue-600 text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- نام کاربر -->
+                        <div class="text-center space-y-2">
+                            <div class="flex items-center justify-center space-x-1 space-x-reverse">
+                                <span id="user-name" class="text-xl font-bold text-gray-800 truncate max-w-[180px]">
+                                    @User.Identity?.Name
+                                </span>
+                                <!-- آیکون تایید -->
+                                <div class="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check text-white text-[10px]"></i>
+                                </div>
+                            </div>
+
+                            <!-- جداکننده -->
+                            <div class="w-12 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mx-auto"></div>
+
+                            <!-- وضعیت -->
+                         
+                        </div>
+                    </div>
+                </div>
+
+              
+            </div>
+
+            <nav class="p-4 flex-1 overflow-y-auto">
+                
+                    @{
+                        var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                    }
+
+                    <ul id="menu-list" class="space-y-2">
+                        @if (roleId == "1")
+                        {
+                        <li class="menu-item" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <a asp-controller="Dashboard"><span>صفحه اصلی</span></a>
+                        </li>
+                        <li class="menu-item" data-page="users">
+                            <i class="fas fa-users"></i>
+                            <a asp-controller="UserManagement" asp-action="Index"><span>مدیریت کاربران</span></a>
+                        </li>
+                        <li class="menu-item" data-page="reports">
+                            <i class="fas fa-file-alt"></i>
+                            <a asp-controller="ReportManagement" asp-action="index"><span>گزارشات</span></a>
+                        </li>
+                      
+                        <li class="menu-item" data-page="profile">
+                            <i class="fas fa-user"></i>
+                            <a asp-controller="Profile"
+                               asp-action="Edit"
+                               asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                                <span>پروفایل</span>
+                            </a>
+                        </li>
+                            
+                        }
+                        else if (roleId == "2")
+                        {
+                        <li class="menu-item" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <a asp-controller="Dashboard"><span>صفحه اصلی</span></a>
+                        </li>
+                        <li class="menu-item" data-page="users">
+                            <i class="fas fa-users"></i>
+                            <a asp-controller="UserManagement" asp-action="Index"><span>مدیریت کاربران</span></a>
+                        </li>
+                        <li class="menu-item" data-page="reports">
+                            <i class="fas fa-file-alt"></i>
+                            <a asp-controller="ReportManagement" asp-action="index"><span>گزارشات</span></a>
+                        </li>
+                        <li class="menu-item" data-page="profile">
+                            <i class="fas fa-user"></i>
+                            <a asp-controller="Profile"
+                               asp-action="Edit"
+                               asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                                <span>پروفایل</span>
+                            </a>
+                        </li>
+                        }
+                        else if (roleId == "3")
+                        {
+                        <li class="menu-item" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <a asp-controller="Dashboard"><span>صفحه اصلی</span></a>
+                        </li>
+                        <li class="menu-item" data-page="reports">
+                            <i class="fas fa-file-alt"></i>
+                            <a asp-controller="ReportManagement" asp-action="MyReports">
+                             <span>گزارشات من</span></a>
+                        </li>
+                        <li class="menu-item" data-page="profile">
+                            <i class="fas fa-user"></i>
+                            <a asp-controller="Profile"
+                               asp-action="Edit"
+                               asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                                <span>پروفایل</span>
+                            </a>
+                        </li>
+                        }
+                        else
+                        {
+                            <li class="text-red-500">نقش کاربر تعریف نشده!</li>
+                        }
+                    </ul>
+
+               
+            </nav>
+        </aside>
+
+        <!-- محتوای اصلی -->
+        <main class="flex-1">
+            <div id="content-area" class="bg-white shadow-md rounded-lg p-6">
+                <!-- محتوای داشبورد یا صفحات دیگر در اینجا نمایش داده می‌شود -->
+                <div class="text-center py-12 text-gray-500">
+
+                    @RenderSection("Create", required: false)
+                    @RenderBody()
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/report-actions.js"></script>
+
+   
+</body>
+
+
+
+</html>

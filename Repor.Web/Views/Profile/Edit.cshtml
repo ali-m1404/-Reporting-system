@@ -1,0 +1,70 @@
+﻿@using Report.Domain.ViewModels
+
+@model EditProfileViewModel
+
+<div id="content-area" class="bg-white shadow-md rounded-lg p-6">
+    <div class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">پروفایل کاربر</h2>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex flex-col md:flex-row items-startn  space-y-6 space-x-6 md:space-y-0 ml:space-x-6">
+                <div class="flex-shrink-0">
+                    <div class="relative">
+                        <img src="./assets/images/user-placeholder.jpg" alt="علی محمدی" class="w-32 h-32 rounded-full object-cover border-4 border-blue-100">
+                        <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <form id="profile-form" method="post">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <input type="hidden" value="@Model.Id"/>
+                            <div class="form-group">
+                                <label asp-for="FirstName" class="form-label">اسم</label>
+                                <input asp-for="FirstName" type="text" class="form-input" value="@Model.FirstName">
+                                <span asp-validation-for="FirstName" class="text-red-500 text-sm"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LastName" class="form-label">تخلص</label>
+                                <input asp-for="LastName" type="text" class="form-input" value="@Model.LastName">
+                                <span asp-validation-for="LastName" class="text-red-500 text-sm"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-label">ایمیل</label>
+                                <input asp-for="Email" type="email" class="form-input" value="@Model.Email">
+                                <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="form-label">شماره موبایل</label>
+                                <input asp-for="PhoneNumber"type="tel"class="form-input" value="@Model.PhoneNumber">
+                                <span asp-validation-for="PhoneNumber" class="text-red-500 text-sm"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CurrentPassword" class="form-label">رمز عبور فعلی</label>
+                                <input asp-for="CurrentPassword"type="password" class="form-input" placeholder="در صورت تمایل به تغییر رمز فعلی را وارد کنید">
+                                <span asp-validation-for="CurrentPassword" class="text-red-500 text-sm"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="NewPassword" class="form-label"> رمز عبور حدید</label>
+                                <input asp-for="NewPassword" id="profile-confirmPassword" class="form-input" placeholder="در صورت تمایل به تغییر رمز جدید وارد کنید">
+                                <span asp-validation-for="NewPassword" class="text-red-500 text-sm"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-end">
+                            <button type="submit" class="btn btn-primary">
+                                ذخیره تغییرات
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

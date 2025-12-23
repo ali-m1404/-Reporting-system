@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+
+/* فونت فارسی */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* استایل‌های پایه برای RTL */
+html {
+  direction: rtl;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+/* استایل‌های سفارشی برای سیستم گزارش‌دهی - راست به چپ */
+.menu-item {
+  @apply flex items-center px-4 py-3 text-gray-700 rounded-lg transition text-right;
+}
+
+.menu-item:hover {
+  @apply bg-blue-50 text-blue-600;
+}
+
+.menu-item.active {
+  @apply bg-blue-100 text-blue-600 font-medium;
+}
+
+.menu-item i {
+  @apply mr-3 text-lg;
+}
+
+.stat-card {
+  @apply bg-white rounded-xl shadow-md p-6 border-r-4 text-right;
+}
+
+.stat-card.primary {
+  @apply border-blue-500;
+}
+
+.stat-card.success {
+  @apply border-green-500;
+}
+
+.stat-card.warning {
+  @apply border-yellow-500;
+}
+
+.stat-card.danger {
+  @apply border-red-500;
+}
+
+.data-table {
+  @apply min-w-full divide-y divide-gray-200 text-right;
+}
+
+.data-table thead {
+  @apply bg-gray-50;
+}
+
+.data-table th {
+  @apply px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.data-table tbody {
+  @apply bg-white divide-y divide-gray-200;
+}
+
+.data-table td {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-blue-500;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.btn-warning {
+  @apply bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
+}
+
+.form-group {
+  @apply mb-4 text-right;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1 text-right;
+}
+
+.form-input {
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-right;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.status-approved {
+  @apply bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.status-rejected {
+  @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+
+
+/* فونت فارسی  */
+
+/* فونت Vazirmatn - نصب محلی */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazirmatn-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* استایل‌های پایه برای RTL */
+html {
+  direction: rtl;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: normal;
+}
+
+/* بقیه استایل‌های سفارشی شما... */
+.menu-item {
+  @apply flex items-center px-4 py-3 text-gray-700 rounded-lg transition text-right gap-3;
+}
+
+.menu-item:hover {
+  @apply bg-blue-50 text-blue-600;
+}
+
+.menu-item.active {
+  @apply bg-blue-100 text-blue-600 font-medium;
+}
+
+.menu-item i {
+  @apply mr-3 text-lg;
+}
+
+/* بقیه استایل‌ها... */
+.field-validation-error {
+    color:red
+}

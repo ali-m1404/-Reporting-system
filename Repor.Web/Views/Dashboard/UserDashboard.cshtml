@@ -1,0 +1,94 @@
+﻿@using Report.Domain.ViewModels
+@model DashboardStatsViewModel
+
+<div id="content-area" class="bg-white shadow-md rounded-lg p-6">
+    <div class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">داشبورد کاربر</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            
+
+            <div class="stat-card success">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm text-gray-500">کل گزارشات من </p>
+                        <p class="text-2xl font-bold mt-1">@Model.TotalReports</p>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <i class="fas fa-file-alt text-green-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm text-gray-500">گزارشات تایید شده</p>
+                        <p class="text-2xl font-bold mt-1">@Model.ApprovedReports</p>
+                    </div>
+                    <div class="p-3 bg-yellow-100 rounded-lg">
+                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm text-gray-500">گزارشات در انتظار</p>
+                        <p class="text-2xl font-bold mt-1">@Model.PendingReports</p>
+                    </div>
+                    <div class="p-3 bg-yellow-100 rounded-lg">
+                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card danger">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm text-gray-500">گزارشات رد شده</p>
+                        <p class="text-2xl font-bold mt-1">@Model.RejectedReports</p>
+                    </div>
+                    <div class="p-3 bg-red-100 rounded-lg">
+                        <i class="fas fa-times-circle text-red-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">آخرین گزارشات</h3>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>عنوان گزارش</th>
+                            <th>نوع</th>
+                            <th>کاربر</th>
+                            <th>تاریخ</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var report in Model.LastReports)
+                        {
+                            <tr>
+                                <td>@report.Title</td>
+                                <td>@report.ReportType</td>
+                                <td>@report.UserName</td>
+                                <td>@report.CreatedDate.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <span class="status-@(report.Status.ToLower())">
+                                        @report.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
