@@ -54,7 +54,16 @@ namespace Repor.Web.Controllers
 
             await _service.CreateAsync(model);
 
-            return RedirectToAction("Index");
+            var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            if(roleId == "1" || roleId == "2")
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("MyReports");
+            }
+           
         }
 
         #endregion

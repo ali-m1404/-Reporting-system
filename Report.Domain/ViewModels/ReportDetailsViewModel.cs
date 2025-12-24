@@ -10,7 +10,7 @@ namespace Report.Domain.ViewModels
 
         public string Description { get; set; }
 
-        public string ReportType { get; set; }
+        public int? ReportTypeId { get; set; }
 
         public string FilePath { get; set; }
 

@@ -80,6 +80,8 @@ namespace Report.Application.Services.Implamentation
         {
             return await _repository.GetDetailsAsync(reportId);
         }
+
+
         public async Task ApproveAsync(int id, int adminId)
         {
             var report = await _repository.GetByIdAsync(id);
@@ -131,14 +133,14 @@ namespace Report.Application.Services.Implamentation
 
         public async Task<CreateReportViewModel> GetCreateReportModelAsync()
             {
-                var types = await _repository.GetAllAsync();
+                var types = await _repository.GetAllReportTypeAsync();
 
                 return new CreateReportViewModel
                 {
                     ReportTypes = types.Select(t => new SelectListItem
                     {
                         Value = t.Id.ToString(),
-                        Text = t.Title
+                        Text = t.Name
                     }).ToList()
                 };
             }

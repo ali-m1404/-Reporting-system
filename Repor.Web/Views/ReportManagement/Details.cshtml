@@ -78,9 +78,20 @@
                                 </svg>
                                 <span class="font-medium">نوع گزارش</span>
                             </div>
+                            @{
+                                string reportTypeText = Model.ReportTypeId switch
+                                {
+                                    1 => "روزانه",
+                                    2 => "هفته‌وار",
+                                    3 => "ماه وار",
+                                    _ => "گزارش مسولیت"
+                                };
+                            }
+
                             <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                <p class="text-gray-800 font-semibold">@Model.ReportType</p>
+                                <p class="text-gray-800 font-semibold">@reportTypeText</p>
                             </div>
+
                         </div>
 
                         <!-- تاریخ ایجاد -->

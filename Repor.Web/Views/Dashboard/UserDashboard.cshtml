@@ -75,14 +75,52 @@
                         {
                             <tr>
                                 <td>@report.Title</td>
-                                <td>@report.ReportType</td>
+                                @{
+                                    var reportType = report.ReportType;
+                                    if (reportType == 1)
+                                    {
+                                        <td>روزانه</td>
+                                    }
+                                    else
+                                    {
+                                        <td> هفته وار </td>
+                                    }
+                                }
                                 <td>@report.UserName</td>
                                 <td>@report.CreatedDate.ToString("yyyy-MM-dd")</td>
-                                <td>
-                                    <span class="status-@(report.Status.ToLower())">
-                                        @report.Status
-                                    </span>
-                                </td>
+
+                                
+                                        @{
+                                            var status = report.Status.ToLower();
+                                            if (status == "pending")
+                                            {
+                                               
+                                                <td>
+                                                    <span class="status-@(report.Status.ToLower())">
+                                                       درانتظار 
+                                                    </span>
+                                                </td>
+                                            }
+                                            else if (status == "aproved")
+                                            {
+                                                <td>
+                                                    <span class="status-@(report.Status.ToLower())">
+                                                        تایید شده
+                                                    </span>
+                                                </td>
+                                                
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <span class="status-@(report.Status.ToLower())">
+                                                        رد شده
+                                                    </span>
+                                                </td>
+                                            }
+                                        }
+                                    
+                               
                             </tr>
                         }
                     </tbody>

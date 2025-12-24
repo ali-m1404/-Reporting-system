@@ -102,7 +102,7 @@ namespace Report.Infrastructure.Repositories
                     Id = r.Id,
                     Title = r.Title,
                     Description = r.Description,
-                    ReportType = r.ReportType.Name,
+                    ReportTypeId = r.ReportTypeId,
                     FilePath = r.FilePath,
                     CreatedBy = r.User.FirstName,
                     CreatedAt = r.CreatedDate,

@@ -69,9 +69,5 @@ namespace Report.Data.Repositories
 
 
 
-        //Task<List<Domain.Entities.Reports.Report>> IDashboardRepository.GetUserReportsAsync(int userId)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
