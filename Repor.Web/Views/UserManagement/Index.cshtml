@@ -52,8 +52,8 @@
 
                         </select>
 
-                            <button type="submit" class="btn btn-primary ml-2">
-                                 فیلتر
+                            <button  type="submit" class="btn btn-primary ml-2">
+                                فیلتر کردن
                             </button>
                     </div>
            </form>
@@ -89,7 +89,7 @@
                                 <tr>
                                     <!-- Name -->
                                     <td>
-                                        <div class="flex items-center">
+                                        <div class="flex items-center space-x-2">
                                             <img src="@(string.IsNullOrEmpty(user.ProfileImagePath) ? "~/assets/images/user-placeholder.jpg" : user.ProfileImagePath)"
                                                  alt="@user.UserName"
                                                  class="w-8 h-8 rounded-full mr-3">

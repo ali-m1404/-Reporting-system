@@ -64,6 +64,7 @@ namespace Report.Application.Services.Implamentation
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = email,
+                RoleId = 3,
                 PhoneNumber = phoneNumber,
                 PasswordHash = PasswordHasher.HashPassword(model.Password),
                 ProfileImage = profileImagePath, // ذخیره مسیر (string)

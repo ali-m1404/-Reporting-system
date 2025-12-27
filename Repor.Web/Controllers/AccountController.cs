@@ -54,11 +54,10 @@ namespace Repor.Web.Controllers
               new Claim("ProfileImage",
                     string.IsNullOrEmpty(user.ProfileImage)
                         ? "/uploads/profile-images/default.png"
-                        : user.ProfileImage
-                )
-
-
-
+                        : user.ProfileImage.StartsWith("/")
+                        ? user.ProfileImage
+                        : "/" + user.ProfileImage
+                        )
 
             };
 

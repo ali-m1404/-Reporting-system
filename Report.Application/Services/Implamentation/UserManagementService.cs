@@ -52,13 +52,7 @@ namespace Report.Services
             if (user.RoleId == 1 && model.RoleId != 1)
                 throw new Exception("Cannot change SuperAdmin role");
 
-            // ❗ آخرین Admin سیستم
-            if (user.RoleId == 2 && model.RoleId != 2)
-            {
-                var adminCount = await _repository.CountAdminsAsync();
-                if (adminCount <= 1)
-                    throw new Exception("Cannot remove last admin");
-            }
+          
 
             // تغییرات وضعیت و نقش
             user.IsActive = model.IsActive;
@@ -162,10 +156,6 @@ namespace Report.Services
 
 
 
-        //public async Task<List<User>> IUserManagementService.GetUsersAsync(string search)
-        //{
-        //    var users = await _repository.GetUsersAsync(search);
-        //    return users.Select(u => new UserDto(u)).ToList();
-        //}
+        
     }
 }
