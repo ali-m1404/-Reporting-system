@@ -43,42 +43,55 @@ namespace Report.Services
             };
         }
 
-        public async Task UpdateUserAsync(EditUserViewModel model)
+        public async Task UpdateUserAsync(EditUserViewModel model, int currentUserRoleId)
         {
             var user = await _repository.GetByIdAsync(model.Id)
-                       ?? throw new Exception("User not found");
+                       ?? throw new Exception("کاربر پیدا نشد");
 
-            
-            if (user.RoleId == 1 && model.RoleId != 1)
-                throw new Exception("نمی توانید رول آدی این بوزر را تغییر دهید");
+            // ❌ اگر کاربر لاگین شده SuperAdmin نیست
+            // و می‌خواهد رول SuperAdmin را تغییر دهد
+            if (currentUserRoleId != 1 && user.RoleId == 1 && model.RoleId != 1)
+            {
+                throw new Exception("شما اجازه تغییر نقش سوپرادمین را ندارید");
+            }
 
-           
+            // ✅ فقط SuperAdmin می‌تواند رول‌ها را تغییر دهد
+            if (currentUserRoleId != 1 && model.RoleId != user.RoleId)
+            {
+                throw new Exception("شما اجازه تغییر نقش کاربران را ندارید");
+            }
+            if(currentUserRoleId != 1 && model.RoleId == 1)
+            {
+                throw new Exception("شما اجازه تغییر وضعییت این کاربر را ندارید");
+            }
 
-            // تغییرات وضعیت و نقش
+            // تغییر وضعیت و نقش
             user.IsActive = model.IsActive;
             user.RoleId = model.RoleId;
 
-            // ✅ اضافه کردن تغییر نام و ایمیل
+            // تغییر نام کاربری
             if (!string.IsNullOrWhiteSpace(model.UserName) && model.UserName != user.FirstName)
             {
-                // می‌توانید چک کنید که نام تکراری نباشد
                 var exists = await _repository.ExistsUserNameAsync(model.UserName);
                 if (exists)
-                    throw new Exception("UserName already exists");
+                    throw new Exception("این نام کاربری قبلاً ثبت شده است");
+
                 user.FirstName = model.UserName;
             }
 
+            // تغییر ایمیل
             if (!string.IsNullOrWhiteSpace(model.Email) && model.Email != user.Email)
             {
-                // می‌توانید چک کنید که ایمیل تکراری نباشد
                 var exists = await _repository.ExistsEmailAsync(model.Email);
                 if (exists)
-                    throw new Exception("Email already exists");
+                    throw new Exception("این ایمیل قبلاً ثبت شده است");
+
                 user.Email = model.Email;
             }
 
             await _repository.SaveAsync();
         }
+
 
         #endregion
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Report.Domain.ViewModels;
 using Report.Services.Contracts;
+using System.Security.Claims;
 
 
 [Authorize(Roles = "1,2")]
@@ -40,7 +41,10 @@ public class UserManagementController : Controller
             if (!ModelState.IsValid)
                 return View(model);
 
-            await _service.UpdateUserAsync(model);
+            int currentUserRoleId = int.Parse( User.FindFirst(ClaimTypes.Role)?.Value ?? "0");
+
+
+            await _service.UpdateUserAsync(model, currentUserRoleId);
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)

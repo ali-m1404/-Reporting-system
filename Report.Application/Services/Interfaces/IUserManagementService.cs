@@ -20,7 +20,7 @@ namespace Report.Services.Contracts
 
         Task<EditUserViewModel?> GetUserForEditAsync(int userId);
 
-        Task UpdateUserAsync(EditUserViewModel model);
+        Task UpdateUserAsync(EditUserViewModel model, int currentUserRoleId);
 
         Task DeleteAsync(int id);
 
