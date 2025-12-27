@@ -35,12 +35,21 @@ public class UserManagementController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(EditUserViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
+        try
+        {
+            if (!ModelState.IsValid)
+                return View(model);
 
-        await _service.UpdateUserAsync(model);
-        return RedirectToAction(nameof(Index));
+            await _service.UpdateUserAsync(model);
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+            return View(model); 
+        }
     }
+
 
 
 

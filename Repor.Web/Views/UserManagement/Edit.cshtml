@@ -39,12 +39,10 @@
         <input asp-for="IsActive" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
         <label class="text-gray-700 font-medium">فعال</label>
     </div>
+    <div asp-validation-summary="All"
+         class="text-red-600 bg-red-50 border border-red-200 rounded-md p-3 mb-4">
+    </div>
 
-    <!-- قفل شده -->
-    @* <div class="flex items-center space-x-2 justify-end">
-        <input asp-for="IsLocked" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" />
-        <label class="text-gray-700 font-medium">قفل شده</label>
-    </div> *@
 
     <!-- دکمه ذخیره -->
     <button type="submit"

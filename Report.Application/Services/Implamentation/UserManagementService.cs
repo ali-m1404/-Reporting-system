@@ -48,11 +48,11 @@ namespace Report.Services
             var user = await _repository.GetByIdAsync(model.Id)
                        ?? throw new Exception("User not found");
 
-            // ❗ SuperAdmin قابل ویرایش خطرناک نیست
+            
             if (user.RoleId == 1 && model.RoleId != 1)
-                throw new Exception("Cannot change SuperAdmin role");
+                throw new Exception("نمی توانید رول آدی این بوزر را تغییر دهید");
 
-          
+           
 
             // تغییرات وضعیت و نقش
             user.IsActive = model.IsActive;
