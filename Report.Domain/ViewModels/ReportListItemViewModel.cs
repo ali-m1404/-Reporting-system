@@ -16,4 +16,5 @@ namespace Report.Domain.ViewModels
         public Report.Domain.Entities.Enums1.ReportStatus Status { get; set; }
     }
 
+
 }

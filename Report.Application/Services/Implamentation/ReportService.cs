@@ -145,25 +145,16 @@ namespace Report.Application.Services.Implamentation
                 };
             }
 
-    public async Task<List<Domain.Entities.Reports.Report>> GetFilteredAsync(
-           ReportFilterViewModel filter)
+        public async Task<List<Domain.Entities.Reports.Report>> GetFilteredAsync(
+         string? search,
+         int? type,
+         int? status,
+         DateTime? fromDate,
+         DateTime? toDate)
         {
-            // 🛡 اعتبارسنجی اولیه
-            if (filter == null)
-                throw new ArgumentNullException(nameof(filter));
-
-            // 🛡 اصلاح بازه تاریخ (خطای رایج)
-            if (filter.FromDate.HasValue && filter.ToDate.HasValue)
-            {
-                if (filter.FromDate > filter.ToDate)
-                    throw new Exception("تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد");
-            }
-
-            // 🔹 دریافت داده‌ها از Repository
-            var reports = await _repository.GetFilteredAsync(filter);
-
-            return reports;
+            return await _repository.GetFilteredAsync(search, type, status, fromDate, toDate);
         }
+
 
         public async Task<List<ReportListItemViewModel>> GetReportsByUserIdAsync(int userId)
         {

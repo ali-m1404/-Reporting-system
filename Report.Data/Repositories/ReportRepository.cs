@@ -35,31 +35,38 @@ namespace Report.Infrastructure.Repositories
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
+
+
+
         // 🔍 Filter
-        public async Task<List<Report.Domain.Entities.Reports.Report>> GetFilteredAsync(ReportFilterViewModel filter)
+        public async Task<List<Domain.Entities.Reports.Report>> GetFilteredAsync( string? search, int? type, int? status,  DateTime? fromDate, DateTime? toDate)
         {
             var query = _context.Reports
-                //.Include(r => r.UserId)
+                .Include(r => r.User)
                 .Include(r => r.ReportType)
                 .Include(r => r._ReportStatus)
                 .AsQueryable();
 
-            if (filter.ReportTypeId.HasValue)
-                query = query.Where(r => r.ReportTypeId == filter.ReportTypeId);
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(r => r.User.FirstName.Contains(search));
 
-            if (filter.ReportStatusId.HasValue)
-                query = query.Where(r => r.ReportStatusId == filter.ReportStatusId);
+            if (type.HasValue)
+                query = query.Where(r => r.ReportTypeId == type);
 
-            if (filter.FromDate.HasValue)
-                query = query.Where(r => r.CreatedDate >= filter.FromDate.Value);
+            if (status.HasValue)
+                query = query.Where(r => r.ReportStatusId == status);
 
-            if (filter.ToDate.HasValue)
-                query = query.Where(r => r.CreatedDate <= filter.ToDate.Value);
+            if (fromDate.HasValue)
+                query = query.Where(r => r.CreatedDate >= fromDate.Value);
+
+            if (toDate.HasValue)
+                query = query.Where(r => r.CreatedDate <= toDate.Value);
 
             return await query
                 .OrderByDescending(r => r.CreatedDate)
                 .ToListAsync();
         }
+
 
         // ✏ Update
         public async Task UpdateAsync(Report.Domain.Entities.Reports.Report report)
@@ -129,5 +136,7 @@ namespace Report.Infrastructure.Repositories
                 })
                 .ToListAsync();
         }
+
+     
     }
 }

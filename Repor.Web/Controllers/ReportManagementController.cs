@@ -20,18 +20,30 @@ namespace Repor.Web.Controllers
         }
 
         [Authorize(Roles = "1,2")]
-        public async Task<IActionResult> Index(ReportFilterViewModel filter)
+        public async Task<IActionResult> Index(ReportIndexViewModel model)
         {
-          
+            var reports = await _service.GetFilteredAsync(
+                model.Search,
+                model.ReportTypeId,
+                model.ReportStatusId,
+                model.FromDate,
+                model.ToDate
+            );
 
-            if (filter != null && (filter.ReportTypeId.HasValue || filter.ReportStatusId.HasValue || filter.FromDate.HasValue || filter.ToDate.HasValue))
+            model.Reports = reports.Select(r => new ReportListItemViewModel
             {
-                // اگر حداقل یکی از فیلترها پر شده باشد، فیلتر اعمال می‌شود
-                 await _service.GetFilteredAsync(filter);
-            }
-            var reports = await _service.GetAllAsync();
-            return View(reports);
+                Id = r.Id,
+                Title = r.Title,
+                ReportType = r.ReportType.Name,
+                UserFullName = r.User.FirstName + " "+ r.User.LastName,
+                CreatedDate = r.CreatedDate,
+                Status = (Report.Domain.Entities.Enums1.ReportStatus)r.ReportStatusId
+            }).ToList();
+
+            return View(model);
         }
+
+
 
         #region CreatReport
         [HttpGet]
