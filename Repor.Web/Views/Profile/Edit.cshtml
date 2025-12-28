@@ -57,11 +57,28 @@
                             </div>
                         </div>
 
-                        <div class="mt-6 flex justify-end">
-                            <button type="submit" class="btn btn-primary">
-                                ذخیره تغییرات
-                            </button>
-                        </div>
+                        @{
+
+                            var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                            @if (roleId == "1" || roleId == "2")
+                            {
+                                <div class="mt-6 flex justify-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        ذخیره تغییرات
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mt-6 flex justify-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        ذخیره تغییرات
+                                    </button>
+                                </div>
+                            }
+                        }
+
+                      
                     </form>
                 </div>
             </div>

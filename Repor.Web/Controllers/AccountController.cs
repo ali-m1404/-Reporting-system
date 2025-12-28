@@ -23,6 +23,16 @@ namespace Repor.Web.Controllers
             _logger = logger;
         }
 
+        #region AccessDenie
+      
+            public IActionResult AccessDenied()
+            {
+                return View();
+            }
+       
+
+        #endregion
+
         #region login 
         public IActionResult Login()
         {
