@@ -37,7 +37,16 @@ namespace Repor.Web.Controllers
                 await _profileService.UpdateProfileAsync(model);
 
                 TempData["Success"] = "پروفایل با موفقیت بروزرسانی شد";
-                return RedirectToAction("Index", "UserManagement");
+                var roleId = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+                if (roleId == "1" || roleId == "2")
+                {
+                    return RedirectToAction("Index", "UserManagement");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "dashboard");
+                }
+                
             }
             catch (Exception ex)
             {

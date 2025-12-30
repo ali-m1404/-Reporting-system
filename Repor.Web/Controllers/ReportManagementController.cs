@@ -19,7 +19,7 @@ namespace Repor.Web.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "1,2")]
+        [Authorize(Roles = "1,2,3")]
         public async Task<IActionResult> Index(ReportIndexViewModel model)
         {
             var reports = await _service.GetFilteredAsync(
@@ -89,7 +89,8 @@ namespace Repor.Web.Controllers
                 return Unauthorized();
 
             var reports = await _service.GetReportsByUserIdAsync(userId);
-            return View(reports);
+            var model = new ReportIndexViewModel { Reports = reports }; 
+            return View(model);
         }
 
 
